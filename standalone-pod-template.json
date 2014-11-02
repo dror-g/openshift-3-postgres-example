@@ -43,7 +43,7 @@
                 "value": "exampleuser"
               },
               {
-                "name": "ADMIN_PASSWORD",
+                "name": "PG_PASSWORD",
                 "value": "example"
               }
             ],

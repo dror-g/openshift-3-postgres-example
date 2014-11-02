@@ -1,1 +1,1 @@
-export GOPATH=/home/jeffmc/openshift-3-standalone-example/example
+export GOPATH=/home/jeffmc/openshift-3-postgres-example/example/src/crunchy.com
