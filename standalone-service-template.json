@@ -1,0 +1,18 @@
+{
+  "id": "pg-service-template",
+  "kind": "Template",
+  "apiVersion": "v1beta1",
+  "name": "pg-service-template",
+  "description": "Example of a Service that refers the the PG pod",
+  "items": [
+    {
+      "id": "pg-service",
+      "kind": "Service",
+      "apiVersion": "v1beta1",
+      "port": 5432,
+      "selector": {
+        "name": "node"
+      }
+    }
+  ]
+}

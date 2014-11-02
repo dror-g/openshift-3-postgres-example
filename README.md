@@ -1,4 +1,5 @@
-openshift-3-postgres-example
-============================
+docker-pg-cluster
+=================
 
-A simple example of running Postgres in Openshift 3 as a Kubernetes Pod
+A Docker-based PostgreSQL Cluster tool
+

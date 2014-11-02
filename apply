@@ -1,0 +1,9 @@
+openshift kube process -c ./standalone-pod-template.json  | openshift kube apply -c -
+sleep 3
+openshift kube process -c ./standalone-service-template.json  | openshift kube apply -c -
+sleep 3
+openshift kube process -c ./standalone-consumer-template.json  | openshift kube apply -c -
+sleep 3
+openshift kube list pods
+sleep 2
+openshift kube list services

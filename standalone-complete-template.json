@@ -1,0 +1,114 @@
+{
+  "id": "pg-standalone-example",
+  "kind": "Template",
+  "apiVersion": "v1beta1",
+  "name": "pg-standalone-example-example",
+  "description": "Example shows how to build a Postgresql standalone instance using Openshift 3",
+  "parameters": [
+    {
+    	"name": "PG_USERNAME",
+	"value": "exampleuser"
+    },
+    {
+
+      "name": "PG_PASSWORD",
+	"value": "examplepass"
+    }
+  ],
+  "items": [
+ 
+    {
+      "id": "pg-service",
+      "kind": "Service",
+      "apiVersion": "v1beta1",
+      "port": 5432,
+      "selector": {
+        "name": "node"
+      }
+    },
+    {
+      "id": "pg-standalone-1",
+      "kind": "Pod",
+      "apiVersion": "v1beta1",
+      "desiredState": {
+        "manifest": {
+          "version": "v1beta1",
+          "id": "pg-standalone-1",
+          "volumes": [
+          	{
+               	"name": "pgdata",
+               	"source":
+               		{
+                       	"hostDir":
+                       		{
+                               	"path": "/var/lib/pgsql/exampleuser"
+                               	}
+			}
+
+		}
+          ],
+          "containers": [{
+            "name": "master",
+            "image": "registry:5000/crunchy-node",
+        	"volumeMounts": [
+                                    {
+                                        "name": "pgdata",
+                                        "mountPath": "/pgdata",
+                                        "readOnly": false
+                                    }
+                 ],
+            "env": [
+              {
+                "name": "PG_USERNAME",
+                "value": "${PG_USERNAME}"
+              },
+              {
+                "name": "PG_PASSWORD",
+                "value": "${PG_PASSWORD}"
+              }
+            ],
+            "ports": [{
+	      "hostPort": 9000,
+              "containerPort": 5432
+            }]
+          }]
+        }
+      },
+      "labels": {
+        "name": "node"
+      }
+    },
+    {
+      "id": "pg-consumer-1",
+      "kind": "Pod",
+      "apiVersion": "v1beta1",
+      "desiredState": {
+        "manifest": {
+          "version": "v1beta1",
+          "id": "pg-consumer-1",
+          "containers": [{
+            "name": "pg-consumer",
+            "image": "registry:5000/example",
+            "env": [
+              {
+                "name": "PG_USERNAME",
+                "value": "${PG_USERNAME}"
+              },
+              {
+                "name": "PG_PASSWORD",
+                "value": "${PG_PASSWORD}"
+              }
+	    ],
+            "ports": [{
+	      "hostPort": 12000,
+              "containerPort": 12000
+            }]
+          }]
+        }
+      },
+      "labels": {
+        "name": "pg-consumer"
+      }
+    }
+  ]
+}
