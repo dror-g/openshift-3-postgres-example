@@ -1,0 +1,3 @@
+openshift kube delete pods/pg-consumer-1
+openshift kube delete pods/pg-standalone-1
+openshift kube delete services/pg-service
