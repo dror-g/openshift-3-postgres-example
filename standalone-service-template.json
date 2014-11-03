@@ -11,7 +11,7 @@
       "apiVersion": "v1beta1",
       "port": 5432,
       "selector": {
-        "name": "node"
+        "name": "crunchy-node"
       }
     }
   ]
